@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd ~
-#sudo apt-get update
+#sudo apt-get update ### we need no update
 sudo apt-get install libpng12-dev -y
 sudo apt-get install python-gpiozero -y
 sudo apt-get install python-pkg-resources python3-pkg-resources -y
@@ -17,7 +17,7 @@ config_txt=/boot/config.txt
 echo "Enabling i2c..."
 if ! grep '^dtparam=i2c_arm=on' $config_txt; then
   echo 'dtparam=i2c_arm=on' >> $config_txt
-  echo '
+  echo 'dtparam=i2c2_iknowwhatimdoing' >> $config_txt
 else
   echo "i2c already enabled."
 fi
