@@ -16,12 +16,14 @@ PNGVIEWPATH = "/home/pi/Mintybatterymonitor/Pngview/"
 ICONPATH = "/home/pi/Mintybatterymonitor/icons"
 CLIPS = 1
 REFRESH_RATE = 2
-VOLT100 = 4.09  # 4.09
-VOLT75 = 3.68   # 3.76
-VOLT50 = 3.46   # 3.63
-VOLT25 = 3.35    # 3.5
-VOLT0 = 3.25     # 3.2
+VOLT100 = 1.49  # 4.09
+VOLT90 = 1.44   # 4.08
+VOLT75 = 1.41   # 3.70
+VOLT50 = 1.36   # 3.63
+VOLT25 = 1.27   # 3.5
+VOLT0 = 1.25    # 3.25
 adc = Adafruit_ADS1x15.ADS1015()
+#adc = 3.55
 GAIN = 1
 
 
@@ -31,7 +33,7 @@ def changeicon(percent):
         iconState = percent
         i = 0
         killid = 0
-        os.system(PNGVIEWPATH + "/pngview -b 0 -l 3000" + percent + " -x 650 -y 10 " + ICONPATH + "/battery" + percent + ".png &")
+        os.system(PNGVIEWPATH + "/pngview -b 0 -l 3000" + percent + " -x 298 -y 6 " + ICONPATH + "/battery" + percent + ".png &")
         out = check_output("ps aux | grep pngview | awk '{ print $2 }'", shell=True)
         nums = out.split('\n')
         for num in nums:
@@ -47,12 +49,18 @@ def endProcess(signalnum=None, handler=None):
 
 
 def readVoltage():
+    #value = round(adc.read_adc(0, gain=GAIN), 1)
     value = adc.read_adc(0, gain=GAIN)
+    #value = "3.4"
     return value
 
 
 def convertVoltage(sensorValue):
     voltage = float(sensorValue) * (4.09 / 2047.0)
+    #voltage = round(voltage), 1)
+    #f = open("/home/pi/voltage.txt", 'a+')
+    #f.write(str(voltage) + '\n')    
+    #print voltage
     return voltage
 
 
@@ -64,7 +72,7 @@ signal.signal(signal.SIGINT, endProcess)
 
 # Begin Battery Monitoring
 
-os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999 -x 650 -y 10 " + ICONPATH + "/blank.png &")
+os.system(PNGVIEWPATH + "/pngview -b 0 -l 299999 -x 298 -y 6 " + ICONPATH + "/blank.png &")
 try:
     with open(toggleFile, 'r') as f:
         output = f.read()
@@ -110,14 +118,18 @@ if state == 1:
                 if status != 75:
                     changeicon("75")
                 status = 75
+            elif ret < VOLT90:
+                if status != 90:
+                    changeicon("90")
+                status = 90
             else:
                 if status != 100:
-                    changeicon("100")
+		    changeicon("100")
                 status = 100
-
             time.sleep(REFRESH_RATE)
         except IOError:
-            print('No i2c Chip Found!')
+            #print('No i2c Chip Found!')
+            os.system("/home/pi/Mintybatterymonitor/RestartBatteryMonitor.sh > /dev/null 2>&1")
             exit(0)
 
 elif state == 0:
@@ -157,5 +169,6 @@ elif state == 0:
 
             time.sleep(REFRESH_RATE)
         except IOError:
-            print('No i2c Chip Found!')
+            os.system("/home/pi/Mintybatterymonitor/RestartBatteryMonitor.sh > /dev/null 2>&1")
+            #print('No i2c Chip Found!')
             exit(0)
