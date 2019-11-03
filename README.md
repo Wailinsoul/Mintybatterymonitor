@@ -39,3 +39,9 @@ change:
 <string name="AudioDevice" value="Master" /> or <string name="AudioDevice" value="Digital" /> 
 to
 <string name="AudioDevice" value="PCM" />
+
+
+
+
+
+
