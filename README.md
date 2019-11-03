@@ -34,3 +34,13 @@ Finally reboot to have it all start on boot with:
 ```
 sudo reboot
 ```
+Error handling Batterymonitor on GPI-CASE:
+
+/opt/retropie/configs/all/emulationstation/es_settings.cfg
+
+change:
+<string name="AudioDevice" value="Master" /> 
+or
+<string name="AudioDevice" value="Digital" /> 
+to
+<string name="AudioDevice" value="PCM" />
