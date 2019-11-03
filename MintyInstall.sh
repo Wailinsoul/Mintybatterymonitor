@@ -17,6 +17,7 @@ config_txt=/boot/config.txt
 echo "Enabling i2c..."
 if ! grep '^dtparam=i2c2_iknowwhatimdoing' $config_txt; then
   echo 'dtparam=i2c2_iknowwhatimdoing' >> $config_txt
+  ## no errors in dmesg by decreasing baudrate
   echo 'dtparam=i2c_baudrate=10000' >> $config_txt
 
 else
