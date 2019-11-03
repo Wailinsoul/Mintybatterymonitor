@@ -1,4 +1,4 @@
-https://github.com/Roughtrade/Mintybatterymonitor/blob/master/circut.png
+https://github.com/Roughtrade/Mintybatterymonitor/blob/master/Circuit.png
 # GPI-CASE Batterymonitor!
 Script first Published by HoolyHoo (MintyPi Sudomod forum) adapted by Snoopy & Wailer (Retroflag GPi on Discord).
 
