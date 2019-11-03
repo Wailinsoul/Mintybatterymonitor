@@ -22,7 +22,7 @@ VOLT75 = 1.41   # 3.70
 VOLT50 = 1.36   # 3.63
 VOLT25 = 1.27   # 3.5
 VOLT0 = 1.25    # 3.25
-adc = Adafruit_ADS1x15.ADS1015()
+adc = Adafruit_ADS1x15.ADS1015(address=0x48, bus=2)
 #adc = 3.55
 GAIN = 1
 
