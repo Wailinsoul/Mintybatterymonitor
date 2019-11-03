@@ -15,9 +15,10 @@ sudo sed -i '/\"exit 0\"/!s/exit 0/\/home\/pi\/Mintybatterymonitor\/MintyStart.s
 
 config_txt=/boot/config.txt
 echo "Enabling i2c..."
-if ! grep '^dtparam=i2c_arm=on' $config_txt; then
-  echo 'dtparam=i2c_arm=on' >> $config_txt
+if ! grep '^dtparam=i2c2_iknowwhatimdoing' $config_txt; then
   echo 'dtparam=i2c2_iknowwhatimdoing' >> $config_txt
+  echo 'dtparam=i2c_baudrate=10000' >> $config_txt
+
 else
   echo "i2c already enabled."
 fi
